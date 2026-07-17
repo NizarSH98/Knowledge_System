@@ -4,6 +4,8 @@ import { MagneticButton } from '../controls/MagneticButton'
 import { KineticWord } from '../typography/KineticWord'
 import { StaticLattice } from '../StaticLattice'
 
+const CLIENT_BRIEF_URL = `${import.meta.env.BASE_URL}knowledge-systems-client-brief.pdf`
+
 const ANNOTATIONS = [
   { top: '6%', left: '10%', text: 'SRC 001 — Operations Manual', em: 'v3.2', mod: '' },
   { top: '26%', left: '34%', text: 'SRC 002 — Research Archive', em: 'approved', mod: 'verified' },
@@ -36,6 +38,17 @@ export function Hero() {
             <MagneticButton href="#how-it-works" variant="secondary" large>
               {hero.secondaryCta}
             </MagneticButton>
+          </div>
+          <div className="hero-brief">
+            <MagneticButton
+              href={CLIENT_BRIEF_URL}
+              variant="secondary"
+              className="btn-brief"
+              download="Knowledge-Systems-Client-Brief.pdf"
+            >
+              {hero.briefCta}
+            </MagneticButton>
+            <span className="hero-brief-meta">{hero.briefMeta}</span>
           </div>
         </div>
         <div className="hero-stage">

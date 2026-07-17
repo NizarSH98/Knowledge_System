@@ -74,6 +74,26 @@
   align-items: center;
 }
 
+.hero-brief {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.hero-brief .btn {
+  padding-block: 0.72rem;
+}
+
+.hero-brief-meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+  color: var(--page-text-dim);
+  text-transform: uppercase;
+}
+
 .hero-stage {
   position: relative;
   min-height: 40vh;

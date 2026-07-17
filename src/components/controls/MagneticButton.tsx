@@ -7,6 +7,7 @@ type Props = {
   variant: 'primary' | 'secondary'
   large?: boolean
   className?: string
+  download?: string
   children: ReactNode
 }
 
@@ -15,7 +16,7 @@ type Props = {
  * target semantics: keyboard focus, touch, and reduced motion all see
  * a plain link. Attraction radius is small and the pull is damped.
  */
-export function MagneticButton({ href, variant, large, className, children }: Props) {
+export function MagneticButton({ href, variant, large, className, download, children }: Props) {
   const wrap = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -81,6 +82,7 @@ export function MagneticButton({ href, variant, large, className, children }: Pr
     <span ref={wrap} className="magnetic">
       <a
         href={href}
+        download={download}
         className={`btn btn-${variant}${large ? ' btn-large' : ''}${className ? ` ${className}` : ''}`}
       >
         <span className="btn-node" aria-hidden="true" />

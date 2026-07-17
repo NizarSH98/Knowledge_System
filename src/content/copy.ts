@@ -18,6 +18,8 @@ export const hero = {
     'Knowledge Systems turns approved company information into a private, permission-aware knowledge layer—so teams can retrieve grounded answers, follow every answer back to its source, and expand toward controlled automation only when the foundation is trusted.',
   primaryCta: 'Request a Knowledge Assessment',
   secondaryCta: 'Explore the System',
+  briefCta: 'Download Client Brief',
+  briefMeta: 'PDF · 64 KB',
   scrollHint: 'Scroll to enter the system',
 }
 

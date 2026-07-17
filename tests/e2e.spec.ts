@@ -47,6 +47,19 @@ test.describe('structure and content', () => {
     expect(href).toContain(encodeURIComponent('Knowledge Systems Assessment Enquiry'))
   })
 
+  test('client brief is exposed as a downloadable PDF', async ({ page }) => {
+    await page.goto('/?nowebgl')
+    const brief = page.locator('.btn-brief')
+    await expect(brief).toBeVisible()
+    await expect(brief).toHaveAttribute('download', 'Knowledge-Systems-Client-Brief.pdf')
+    await expect(brief).toHaveAttribute('href', './knowledge-systems-client-brief.pdf')
+
+    const response = await page.request.get('/knowledge-systems-client-brief.pdf')
+    expect(response.ok()).toBe(true)
+    expect(response.headers()['content-type']).toContain('application/pdf')
+    expect((await response.body()).byteLength).toBeGreaterThan(60_000)
+  })
+
   test('engagement phases stay distinct and read-only-first is explicit', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('.phase')).toHaveCount(4)
