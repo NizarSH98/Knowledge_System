@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: radial-gradient(120% 140% at 30% 40%, #16130f 0%, #0d0c0a 62%);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #ebe5d8;
+    display: flex; align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .copy { padding: 0 0 0 84px; max-width: 620px; position: relative; z-index: 2; }
+  .mark { display: flex; align-items: center; gap: 14px; margin-bottom: 44px; }
+  .mark svg { width: 30px; height: 30px; }
+  .mark span { font-size: 25px; letter-spacing: -0.01em; }
+  .mark b { font-weight: 600; }
+  .mark i { font-style: normal; font-weight: 300; color: #b9b1a1; }
+  h1 { font-size: 58px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.08; }
+  h1 em { font-style: normal; color: #d59d69; }
+  p.tag {
+    margin-top: 34px; font-family: Consolas, monospace; font-size: 17px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: #b9b1a1; white-space: nowrap;
+  }
+  .lattice { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); width: 640px; height: 640px; opacity: 0.95; }
+  .rule { position: absolute; left: 84px; bottom: 64px; width: 120px; height: 2px; background: #b0764a; }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="mark">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 2 L22 12 L12 22 L2 12 Z" stroke="#b0764a" stroke-width="1.4"/>
+        <path d="M12 7 L17 12 L12 17 L7 12 Z" stroke="#ebe5d8" stroke-width="1.1"/>
+        <circle cx="12" cy="12" r="1.4" fill="#78cfb4"/>
+      </svg>
+      <span><b>Knowledge</b> <i>Systems</i></span>
+    </div>
+    <h1>Your company already contains the answers—<em>with evidence.</em></h1>
+    <p class="tag">Private · Permission-aware · Citation-grounded</p>
+  </div>
+  <div class="rule"></div>
+  <svg class="lattice" viewBox="0 0 600 600">
+    <circle cx="300" cy="300" r="264" fill="none" stroke="#b0764a" stroke-width="1" stroke-dasharray="4 9" opacity="0.55"/>
+    <circle cx="300" cy="300" r="205" fill="none" stroke="#ebe5d8" stroke-width="0.8" opacity="0.3"/>
+    <circle cx="300" cy="300" r="205" fill="none" stroke="#b0764a" stroke-width="0.6" stroke-dasharray="2 6" opacity="0.5"/>
+    <g id="g"></g>
+  </svg>
+  <script>
+    const g = document.getElementById('g');
+    const NS = 'http://www.w3.org/2000/svg';
+    const inner = [], outer = [];
+    for (let i = 0; i < 6; i++) {
+      const a = (i / 6) * Math.PI * 2 + 0.35;
+      inner.push({ x: 300 + Math.cos(a) * 95, y: 300 + Math.sin(a) * 95, cited: i % 2 === 0 });
+    }
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      outer.push({ x: 300 + Math.cos(a) * 168, y: 300 + Math.sin(a) * 168, restricted: i % 3 === 0 });
+    }
+    const line = (x1, y1, x2, y2, stroke, w, o, dash) => {
+      const l = document.createElementNS(NS, 'line');
+      l.setAttribute('x1', x1); l.setAttribute('y1', y1);
+      l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+      l.setAttribute('stroke', stroke); l.setAttribute('stroke-width', w); l.setAttribute('opacity', o);
+      if (dash) l.setAttribute('stroke-dasharray', dash);
+      g.appendChild(l);
+    };
+    const diamond = (x, y, s, stroke, fill, dash) => {
+      const r = document.createElementNS(NS, 'rect');
+      r.setAttribute('x', x - s); r.setAttribute('y', y - s);
+      r.setAttribute('width', s * 2); r.setAttribute('height', s * 2);
+      r.setAttribute('transform', `rotate(45 ${x} ${y})`);
+      r.setAttribute('fill', fill); r.setAttribute('stroke', stroke); r.setAttribute('stroke-width', '1.1');
+      if (dash) r.setAttribute('stroke-dasharray', dash);
+      g.appendChild(r);
+    };
+    inner.forEach(n => line(300, 300, n.x, n.y, '#ebe5d8', 0.6, 0.25));
+    outer.forEach((n, i) => line(inner[i % 6].x, inner[i % 6].y, n.x, n.y, '#ebe5d8', 0.5, 0.18));
+    inner.filter(n => n.cited).forEach(n => line(300, 392, n.x, n.y, '#78cfb4', 1, 0.75));
+    const rect = document.createElementNS(NS, 'rect');
+    rect.setAttribute('x', 248); rect.setAttribute('y', 368);
+    rect.setAttribute('width', 104); rect.setAttribute('height', 48);
+    rect.setAttribute('fill', 'none'); rect.setAttribute('stroke', '#ebe5d8'); rect.setAttribute('opacity', 0.85);
+    g.appendChild(rect);
+    [380, 392, 404].forEach((y, i) => line(258, y, 330 - i * 6, y, '#ebe5d8', 1.4, 0.7 - i * 0.15));
+    const poly = document.createElementNS(NS, 'polygon');
+    poly.setAttribute('points', '300,262 332,281 332,319 300,338 268,319 268,281');
+    poly.setAttribute('fill', 'none'); poly.setAttribute('stroke', '#d59d69'); poly.setAttribute('stroke-width', '1.2'); poly.setAttribute('opacity', '0.9');
+    g.appendChild(poly);
+    inner.forEach(n => diamond(n.x, n.y, 4, n.cited ? '#78cfb4' : '#d59d69', n.cited ? '#78cfb4' : 'none'));
+    outer.forEach(n => diamond(n.x, n.y, 3.4, n.restricted ? '#c07a52' : '#b0764a', 'none', n.restricted ? '2 2' : null));
+  </script>
+</body>
+</html>

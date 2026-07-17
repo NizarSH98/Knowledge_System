@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knowledge Systems — Private, Permission-Aware Company Knowledge</title>
+    <meta
+      name="description"
+      content="Knowledge Systems builds private company knowledge layers that connect approved sources, preserve access boundaries, and produce citation-grounded answers."
+    />
+    <link rel="canonical" href="https://nizarsh98.github.io/Knowledge_System/" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="theme-color" content="#ece7db" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Applied before first paint to avoid a theme flash.
+      ;(function () {
+        try {
+          var p = new URLSearchParams(location.search).get('theme')
+          var t = p === 'dark' || p === 'light' ? p : localStorage.getItem('ks-theme')
+          document.documentElement.dataset.theme = t === 'dark' ? 'dark' : 'light'
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Knowledge Systems" />
+    <meta property="og:title" content="Knowledge Systems — Private, Permission-Aware Company Knowledge" />
+    <meta
+      property="og:description"
+      content="Private company knowledge layers: approved sources, preserved access boundaries, citation-grounded answers."
+    />
+    <meta property="og:url" content="https://nizarsh98.github.io/Knowledge_System/" />
+    <meta property="og:image" content="https://nizarsh98.github.io/Knowledge_System/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Knowledge Systems — Private, Permission-Aware Company Knowledge" />
+    <meta
+      name="twitter:description"
+      content="Private company knowledge layers: approved sources, preserved access boundaries, citation-grounded answers."
+    />
+    <meta name="twitter:image" content="https://nizarsh98.github.io/Knowledge_System/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Knowledge Systems",
+        "description": "Private, permission-aware company knowledge systems. Connects approved organizational repositories, preserves access boundaries, and produces citation-grounded answers.",
+        "url": "https://nizarsh98.github.io/Knowledge_System/",
+        "email": "jabernizar98@gmail.com",
+        "founder": { "@type": "Person", "name": "Nizar Shehayeb" },
+        "knowsAbout": [
+          "Knowledge management systems",
+          "Retrieval-augmented generation",
+          "Permission-aware information retrieval",
+          "Enterprise search"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

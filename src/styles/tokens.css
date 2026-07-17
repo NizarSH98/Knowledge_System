@@ -1,0 +1,114 @@
+:root {
+  /* ── Fixed material palette (used by surfaces that never flip) ── */
+  --carbon: #0d0c0a;
+  --carbon-raise: #131109;
+  --carbon-2: #161410;
+  --graphite: #26231e;
+  --graphite-2: #3b3630;
+  --line-dark: rgba(235, 229, 216, 0.14);
+  --line-dark-faint: rgba(235, 229, 216, 0.07);
+
+  --parchment: #ebe5d8;
+  --parchment-2: #e2dbcb;
+  --parchment-dim: #b9b1a1;
+  --ink: #191713;
+  --ink-soft: #4d473d;
+  --line-light: rgba(25, 23, 19, 0.16);
+  --line-light-faint: rgba(25, 23, 19, 0.08);
+
+  --copper: #b0764a;
+  --copper-bright: #d59d69;
+  --copper-oxide: #8a6a55;
+  --verdigris: #78cfb4;
+  --verdigris-deep: #3f9c85;
+  --restricted: #c07a52;
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-editorial: 'Schibsted Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-accent: 'Fraunces Variable', Georgia, serif;
+  --font-mono: 'Spline Sans Mono', 'Consolas', monospace;
+
+  --fs-hero: clamp(2.2rem, 3.4vw + 0.7rem, 4.3rem);
+  --fs-display: clamp(1.9rem, 3vw + 0.5rem, 3.6rem);
+  --fs-h2: clamp(1.9rem, 3.4vw + 0.5rem, 3.4rem);
+  --fs-h3: clamp(1.3rem, 1.4vw + 0.7rem, 1.9rem);
+  --fs-h4: clamp(1.1rem, 0.6vw + 0.9rem, 1.3rem);
+  --fs-body-lg: clamp(1.08rem, 0.45vw + 0.92rem, 1.32rem);
+  --fs-body: clamp(0.99rem, 0.2vw + 0.93rem, 1.1rem);
+  --fs-small: 0.9rem;
+  --fs-mono: clamp(0.68rem, 0.15vw + 0.64rem, 0.78rem);
+  --fs-kicker: clamp(0.74rem, 0.2vw + 0.7rem, 0.85rem);
+
+  --track-mono: 0.08em;
+  --track-kicker: 0.22em;
+
+  /* ── Rhythm & structure ───────────────────────────────────── */
+  --gutter: clamp(1.25rem, 4.5vw, 5rem);
+  --space-section: clamp(6rem, 14vh, 11rem);
+  --space-block: clamp(2.5rem, 5vh, 4.5rem);
+  --content-max: 1680px;
+  --prose-max: 34em;
+  --nav-height: 4.25rem;
+
+  /* ── Motion ───────────────────────────────────────────────── */
+  --ease-align: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-firm: cubic-bezier(0.6, 0, 0.15, 1);
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 900ms;
+
+  /* ── Layers ───────────────────────────────────────────────── */
+  --z-canvas: 0;
+  --z-content: 1;
+  --z-status: 30;
+  --z-nav: 50;
+  --z-grain: 60;
+
+  /* ── Theme: LIGHT (default) — 60% warm paper, 30% ink/carbon
+        blocks (engagement · principles · footer · mask band),
+        10% copper accent with a spectral micro-accent ─────────── */
+  --page-bg: #ece7db;
+  --page-bg-raise: #f4f0e5;
+  --page-bg-deep: #e2dccc;
+  --page-text: #191713;
+  --page-text-dim: #5d564a;
+  --page-line: rgba(25, 23, 19, 0.18);
+  --page-line-faint: rgba(25, 23, 19, 0.09);
+
+  --accent: #9c5f30;
+  --accent-bright: #86491f;
+  --accent-soft: #8a6a55;
+  --spectral: #257c67;
+  --restricted-c: #a35b34;
+
+  --btn-primary-bg: #191713;
+  --btn-primary-fg: #ece7db;
+  --btn-primary-hover: #86491f;
+
+  --mask-surface: #17140f;
+  --scrim-rgb: 236, 231, 219;
+}
+
+:root[data-theme='dark'] {
+  --page-bg: #0d0c0a;
+  --page-bg-raise: #131109;
+  --page-bg-deep: #161410;
+  --page-text: #ebe5d8;
+  --page-text-dim: #b9b1a1;
+  --page-line: rgba(235, 229, 216, 0.14);
+  --page-line-faint: rgba(235, 229, 216, 0.07);
+
+  --accent: #b0764a;
+  --accent-bright: #d59d69;
+  --accent-soft: #8a6a55;
+  --spectral: #78cfb4;
+  --restricted-c: #c07a52;
+
+  --btn-primary-bg: #ebe5d8;
+  --btn-primary-fg: #191713;
+  --btn-primary-hover: #d59d69;
+
+  --mask-surface: #ebe5d8;
+  --scrim-rgb: 13, 12, 10;
+}

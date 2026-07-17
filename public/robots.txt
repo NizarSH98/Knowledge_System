@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nizarsh98.github.io/Knowledge_System/sitemap.xml

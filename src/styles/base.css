@@ -1,0 +1,251 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+html.reduced-motion {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--page-text);
+  font-family: var(--font-editorial);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  min-height: 100svh;
+  transition: background-color var(--dur-med) var(--ease-settle), color var(--dur-med) var(--ease-settle);
+}
+
+#root {
+  isolation: isolate;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--page-bg);
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--spectral);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--page-text);
+  color: var(--page-bg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  transform: translateY(-300%);
+  transition: transform var(--dur-fast) var(--ease-firm);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ── Shared editorial vocabulary ─────────────────────────────── */
+
+.section {
+  position: relative;
+  z-index: var(--z-content);
+  padding: var(--space-section) var(--gutter);
+}
+
+.section-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem 2.5rem;
+  align-items: baseline;
+  margin-bottom: var(--space-block);
+}
+
+.section-no {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.section-no::after {
+  content: '';
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  margin-left: 0.9rem;
+  vertical-align: middle;
+  background: currentcolor;
+  opacity: 0.5;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-kicker);
+  letter-spacing: var(--track-kicker);
+  text-transform: uppercase;
+  color: var(--page-text-dim);
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+}
+
+.accent-word {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 60;
+  font-weight: 440;
+  color: var(--accent-bright);
+}
+
+.surface-light {
+  background: var(--parchment);
+  color: var(--ink);
+}
+
+.surface-light ::selection {
+  background: var(--ink);
+  color: var(--parchment);
+}
+
+.surface-light .kicker {
+  color: var(--ink-soft);
+}
+
+.surface-light .section-no {
+  color: var(--copper-oxide);
+}
+
+.surface-dark {
+  background: var(--carbon-2);
+  color: var(--parchment);
+}
+
+.surface-dark .kicker {
+  color: var(--parchment-dim);
+}
+
+.surface-dark ::selection {
+  background: var(--copper);
+  color: var(--carbon);
+}
+
+.prose {
+  max-width: var(--prose-max);
+  font-size: var(--fs-body-lg);
+  line-height: 1.65;
+}
+
+/* ── Fixed WebGL layer: behind content, never blocks interaction ── */
+
+.canvas-root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+}
+
+.canvas-root canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ── Grain overlay: almost imperceptible, above everything ───── */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html.reduced-motion *,
+html.reduced-motion *::before,
+html.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
