@@ -1,0 +1,43 @@
+# V2 architecture
+
+## Boundary
+
+`/v2` is a standalone application boundary. It may reuse approved facts and public brand assets by explicit reference later, but it must not import V1 components, styles, hooks, or scene code. V1 remains deployable independently.
+
+## Layers
+
+1. **Data** supplies the clearly fictional Asteria Infrastructure Group records.
+2. **Knowledge model** performs deterministic retrieval, permissions, version filtering, ranking, provenance resolution, and refusal.
+3. **Application state** will own route, direction, palette, identity, time, query, selected claim/source, quality, and motion preference.
+4. **Shared UI** will provide only behaviorally common controls and accessible primitives.
+5. **Direction trees** own their information architecture, typography, composition, rhythm, and interaction grammar.
+6. **Graphics adapter** receives immutable view state and reports picking/performance events. It does not make knowledge decisions.
+
+## State invariants
+
+- Identity changes rerun permission filtering; they do not merely relabel the interface.
+- The current-version filter runs after permission filtering and before ranking.
+- A claim exists only when its declared evidence threshold is met.
+- Citations point to a passage, document, repository, owner department, and version.
+- Restricted passages never reach render state. A concealed exclusion marker may be shown without title or passage text.
+- Unsupported questions return an explicit refusal with an observable retrieval trace.
+- Theme changes update both CSS custom properties and renderer uniforms from one semantic definition.
+- Static mode uses the same retrieval result and interaction state as GPU modes.
+
+## Route contract
+
+The five routes are defined in `src/app/routes.ts`. Checkpoint 2 will select the smallest routing implementation that handles GitHub Pages deep-link behavior without modifying V1 deployment.
+
+## Direction isolation
+
+Each direction owns its component tree and styles. Shared modules may express facts, controls, focus management, and state, but may not impose a card shell, page grid, type scale, animation preset, or navigation layout. `src/directions/registry.ts` records the intended structural differences before UI work begins.
+
+## Planned renderer lifecycle
+
+- One lazily initialized renderer per mounted direction.
+- Canvas creation follows meaningful DOM content; no cinematic loader.
+- Rendering suspends when the page is hidden or the canvas is out of view.
+- Resize and DPR are owned centrally.
+- Scene resources expose deterministic `dispose()` methods.
+- Backend can be forced to WebGL or static through a development/test parameter.
+- Device loss or initialization failure moves down one tier without losing page functionality.
