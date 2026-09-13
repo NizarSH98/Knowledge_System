@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { chromium, type Page } from '@playwright/test'
 
 const baseUrl = process.env.V2_PREVIEW_URL ?? 'http://127.0.0.1:4174'
-const themes = ['night-instrument', 'deep-cobalt', 'polar-instrument', 'graphite-spectral'] as const
+const themes = ['polar-sage', 'warm-paper', 'night-instrument', 'graphite-spectral'] as const
 const outputRoot = join(process.cwd(), 'artifacts', 'observatory')
 
 async function open(page: Page, theme: string) {
@@ -53,7 +53,7 @@ try {
     await page.close()
   }
 
-  const mobileOutput = join(outputRoot, 'mobile-polar')
+  const mobileOutput = join(outputRoot, 'mobile-polar-sage')
   await mkdir(mobileOutput, { recursive: true })
   const mobileContext = await browser.newContext({
     viewport: { width: 393, height: 851 },
@@ -62,7 +62,7 @@ try {
     isMobile: true,
   })
   const mobilePage = await mobileContext.newPage()
-  await open(mobilePage, 'polar-instrument')
+  await open(mobilePage, 'polar-sage')
   await frame(mobilePage, '.observatory-space', join(mobileOutput, '01-organization.png'))
   await mobilePage.emulateMedia({ reducedMotion: 'reduce' })
   await mobilePage.getByLabel('Identity', { exact: true }).selectOption('identity-procurement')

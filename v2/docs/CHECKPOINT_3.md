@@ -1,5 +1,7 @@
 # Checkpoint 3 review: Knowledge Observatory
 
+> Historical checkpoint: the later integrated redesign is documented in `INTEGRATED_REDESIGN.md`.
+
 Review date: 13 September 2026
 
 ## Outcome

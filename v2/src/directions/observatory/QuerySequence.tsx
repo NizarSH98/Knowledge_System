@@ -46,7 +46,9 @@ export function QuerySequence({
 }: QuerySequenceProps) {
   const activeIndex = stages.findIndex((item) => item.id === stage)
   const displayStage = stage === 'idle' ? stages[0] : stages[Math.max(activeIndex, 0)]
-  const sourceCount = new Set(result.evidence.map(({ document }) => document.id)).size
+  const canPresentClaims = result.status === 'supported' || result.status === 'partially-supported'
+  const visibleClaims = canPresentClaims ? result.claims : []
+  const sourceCount = canPresentClaims ? new Set(result.citations.map((citation) => citation.documentId)).size : 0
 
   return (
     <section className="query-sequence" aria-labelledby="query-title">
@@ -100,15 +102,15 @@ export function QuerySequence({
               <h3>{result.status === 'supported' ? 'Answer supported' : result.status === 'partially-supported' ? 'Partial answer' : result.status === 'insufficient-permissions' ? 'Access-limited refusal' : 'Unsupported question'}</h3>
             </div>
             <div className="answer-resolution__measure">
-              <strong>{String(result.claims.length).padStart(2, '0')}</strong><span>claims</span>
+              <strong>{String(visibleClaims.length).padStart(2, '0')}</strong><span>claims</span>
               <strong>{String(sourceCount).padStart(2, '0')}</strong><span>sources</span>
             </div>
           </header>
           <p className="answer-resolution__answer">{result.answer}</p>
 
-          {result.claims.length > 0 ? (
+          {visibleClaims.length > 0 ? (
             <ol className="resolved-claims">
-              {result.claims.map((claim, claimIndex) => (
+              {visibleClaims.map((claim, claimIndex) => (
                 <li key={claim.id}>
                   <span>{String(claimIndex + 1).padStart(2, '0')}</span>
                   <div>

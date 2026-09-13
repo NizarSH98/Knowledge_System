@@ -19,6 +19,7 @@ export const SEMANTIC_COLOR_TOKENS = [
 
 export type SemanticColorToken = (typeof SEMANTIC_COLOR_TOKENS)[number]
 export type SemanticColorMap = Readonly<Record<SemanticColorToken, string>>
+export type ThemeMode = 'light' | 'dark'
 
 export interface GraphicsTheme {
   readonly background: string
@@ -35,7 +36,8 @@ export interface GraphicsTheme {
 export interface ThemeDefinition {
   readonly id: string
   readonly name: string
-  readonly directionId: 'observatory' | 'institutional-os' | 'living-archive'
+  readonly mode: ThemeMode
+  readonly character: string
   readonly colors: SemanticColorMap
   readonly graphics: GraphicsTheme
 }

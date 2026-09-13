@@ -4,7 +4,7 @@ import { canAccessDocument } from '../../knowledge-model/permissions.ts'
 import { retrieveKnowledge } from '../../knowledge-model/retrieval.ts'
 import type { Identity } from '../../knowledge-model/types.ts'
 import { RouteLink } from '../../shared/components/RouteLink.tsx'
-import { useDirectionTheme } from '../../themes/useDirectionTheme.ts'
+import { useTheme } from '../../themes/useTheme.ts'
 import { V2_ROUTES } from '../../app/routes.ts'
 import type { ObservatoryScale, QueryStage } from './model.ts'
 import { ObservatoryMap } from './ObservatoryMap.tsx'
@@ -21,7 +21,7 @@ const scaleDefinitions: readonly { readonly id: ObservatoryScale; readonly label
 
 export function ObservatoryPage() {
   const model = asteriaKnowledgeModel
-  const { theme, options: themeOptions, selectTheme } = useDirectionTheme('observatory')
+  const { theme, modeOptions: themeOptions, selectMode, selectTheme } = useTheme()
   const [identityId, setIdentityId] = useState('identity-general')
   const [scale, setScale] = useState<ObservatoryScale>('organization')
   const [draftQuestion, setDraftQuestion] = useState(CANONICAL_QUESTION)
@@ -126,8 +126,15 @@ export function ObservatoryPage() {
           </select>
         </label>
         <label>
-          <span>Instrument finish</span>
-          <select aria-label="Instrument finish" value={theme.id} onChange={(event) => selectTheme(event.target.value)}>
+          <span>Reading mode</span>
+          <select aria-label="Reading mode" value={theme.mode} onChange={(event) => selectMode(event.target.value as 'light' | 'dark')}>
+            <option value="light">Light mode</option>
+            <option value="dark">Dark mode</option>
+          </select>
+        </label>
+        <label>
+          <span>Color palette</span>
+          <select aria-label="Color palette" value={theme.id} onChange={(event) => selectTheme(event.target.value)}>
             {themeOptions.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
         </label>

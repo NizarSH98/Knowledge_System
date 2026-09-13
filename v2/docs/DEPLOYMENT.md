@@ -15,8 +15,8 @@ Open these URLs on port 4174:
 
 - `/` — direction chooser
 - `/observatory` — completed Knowledge Observatory
-- `/os` — Institutional OS foundation
-- `/archive` — Living Archive foundation
+- `/os` — Institutional OS workspace
+- `/archive` — Living Archive evidence dossier
 - `/compare` — comparison placeholder
 
 ## Exact production artifact review

@@ -22,6 +22,8 @@ try {
     if (response?.status() !== 200) throw new Error(`${route} returned ${response?.status() ?? 'no response'}`)
     await page.locator('main').waitFor()
     await page.locator('h1').waitFor()
+    const routeName = route === '/' ? 'chooser' : route.replaceAll('/', '')
+    await page.screenshot({ path: join(outputDirectory, `route-${routeName}.png`) })
     console.log(`200 ${publicBase}${route}`)
   }
 
@@ -30,7 +32,7 @@ try {
   await page.evaluate(() => {
     ;(window as Window & { __deploymentSentinel?: string }).__deploymentSentinel = 'preserved'
   })
-  await page.getByRole('link', { name: /Enter direction/ }).first().click()
+  await page.getByRole('link', { name: /Open the Knowledge Observatory workspace/ }).click()
 
   if (new URL(page.url()).pathname !== `${publicBase}/observatory`) {
     throw new Error(`Client navigation lost the repository prefix: ${page.url()}`)

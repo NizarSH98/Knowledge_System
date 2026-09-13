@@ -26,7 +26,8 @@ export function applyTheme(theme: ThemeDefinition, element = document.documentEl
     element.style.setProperty(cssName, value)
   }
   element.dataset.v2Theme = theme.id
-  element.dataset.v2Direction = theme.directionId
+  element.dataset.v2ColorMode = theme.mode
+  element.style.colorScheme = theme.mode
   if (replacingTheme) {
     element.dataset.v2ThemeTransition = 'ready'
   } else {
@@ -43,7 +44,8 @@ export function applyTheme(theme: ThemeDefinition, element = document.documentEl
 export function clearAppliedTheme(element = document.documentElement): void {
   for (const cssName of Object.values(cssTokenNames)) element.style.removeProperty(cssName)
   delete element.dataset.v2Theme
-  delete element.dataset.v2Direction
+  delete element.dataset.v2ColorMode
+  element.style.removeProperty('color-scheme')
   delete element.dataset.v2ThemeTransition
   document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
     ?.setAttribute('content', '#E8E7E2')

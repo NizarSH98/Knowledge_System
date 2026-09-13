@@ -12,7 +12,6 @@ export interface DirectionDefinition {
   readonly navigationModel: string
   readonly dominantInteraction: string
   readonly webGpuDependency: 'central' | 'secondary' | 'material'
-  readonly paletteIds: readonly string[]
 }
 
 export const directions: readonly DirectionDefinition[] = [
@@ -26,7 +25,6 @@ export const directions: readonly DirectionDefinition[] = [
     navigationModel: 'Instrument modes, identity, time, and query controls.',
     dominantInteraction: 'Trace an answer through evidence in space.',
     webGpuDependency: 'central',
-    paletteIds: ['night-instrument', 'deep-cobalt', 'polar-instrument', 'graphite-spectral'],
   },
   {
     id: 'institutional-os',
@@ -38,7 +36,6 @@ export const directions: readonly DirectionDefinition[] = [
     navigationModel: 'Domain rail, command input, inspectors, and event trace.',
     dominantInteraction: 'Operate an answer workspace and inspect every claim.',
     webGpuDependency: 'secondary',
-    paletteIds: ['black-cobalt', 'warm-white-ink', 'steel-teal', 'oxide-paper'],
   },
   {
     id: 'living-archive',
@@ -50,6 +47,5 @@ export const directions: readonly DirectionDefinition[] = [
     navigationModel: 'Records, references, history layers, and marginal navigation.',
     dominantInteraction: 'Gather records into a visibly footnoted case.',
     webGpuDependency: 'material',
-    paletteIds: ['ivory-oxblood', 'charcoal-brass', 'bone-cobalt', 'forest-parchment'],
   },
 ]

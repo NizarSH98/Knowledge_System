@@ -9,121 +9,88 @@ for (const route of routes) {
     page.on('console', (message) => {
       if (message.type() === 'error') consoleErrors.push(message.text())
     })
-    await page.goto(`${route}?v2renderer=static`, { waitUntil: 'domcontentloaded' })
+    await page.goto(route, { waitUntil: 'domcontentloaded' })
     await expect(page.locator('main')).toBeVisible()
     await expect(page.locator('h1')).toBeVisible()
     expect(consoleErrors).toEqual([])
   })
 }
 
-test('chooser presents three genuinely distinct concepts', async ({ page }) => {
+test('home combines three genuinely distinct experiences', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByRole('heading', { name: 'Three ways to understand organizational knowledge.' })).toBeVisible()
-  await expect(page.getByRole('article')).toHaveCount(3)
-  await expect(page.getByText('Trace an answer through evidence in space.')).toBeVisible()
-  await expect(page.getByText('Operate an answer workspace and inspect every claim.')).toBeVisible()
-  await expect(page.getByText('Gather records into a visibly footnoted case.')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Observe, operate, and remember what the organization knows.' })).toBeVisible()
+  await expect(page.locator('.integrated-direction')).toHaveCount(3)
+  await expect(page.getByText('See the organization around the answer.')).toBeVisible()
+  await expect(page.getByText('Turn evidence into a dependable work surface.')).toBeVisible()
+  await expect(page.getByText('Read the decision as an institutional record.')).toBeVisible()
 })
 
-test('route navigation and palette state work without reload', async ({ page }) => {
-  await page.goto('/?test=route&v2renderer=static', { waitUntil: 'domcontentloaded' })
-  await page.evaluate(() => {
-    ;(window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel = 'preserved'
-  })
-  await page.getByRole('link', { name: /Enter direction/ }).first().click()
+test('route navigation and global palette state work without reload', async ({ page }) => {
+  await page.goto('/?test=route', { waitUntil: 'domcontentloaded' })
+  await page.evaluate(() => { (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel = 'preserved' })
+  await page.getByRole('link', { name: /Open the Knowledge Observatory workspace/ }).click()
   await expect(page).toHaveURL(/\/observatory/)
   expect(await page.evaluate(() => (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel)).toBe('preserved')
-  await page.getByLabel('Instrument finish').selectOption('polar-instrument')
-  await expect(page).toHaveURL(/v2theme=polar-instrument/)
-  await expect(page.locator('html')).toHaveAttribute('data-v2-theme', 'polar-instrument')
+  await page.getByLabel('Color palette').selectOption('polar-sage')
+  await expect(page).toHaveURL(/v2theme=polar-sage/)
+  await expect(page.locator('html')).toHaveAttribute('data-v2-theme', 'polar-sage')
   await expect(page.locator('html')).toHaveCSS('--color-bg', '#EDF1EE')
   await page.reload()
-  await expect(page.getByLabel('Instrument finish')).toHaveValue('polar-instrument')
+  await expect(page.getByLabel('Color palette')).toHaveValue('polar-sage')
 })
 
-test('shared retrieval behavior changes with identity and refuses unsupported questions', async ({ page }) => {
-  await page.goto('/os?v2renderer=static', { waitUntil: 'domcontentloaded' })
+test('Institutional OS retrieval changes by identity and refuses unsupported questions', async ({ page }) => {
+  await page.goto('/os', { waitUntil: 'domcontentloaded' })
   const status = page.getByTestId('query-status')
-  await expect(status).toHaveText('insufficient permissions')
-
+  await expect(status).toHaveText('Access-limited refusal')
   await page.getByLabel('Identity').selectOption('identity-operations')
-  await expect(status).toHaveText('partially supported')
-
+  await expect(status).toHaveText('Partial answer')
   await page.getByLabel('Identity').selectOption('identity-procurement')
-  await expect(status).toHaveText('supported')
-  await expect(page.locator('.claim-list > li')).toHaveCount(4)
-
-  await page.getByRole('button', { name: 'Try the unsupported question' }).click()
-  await expect(status).toHaveText('unsupported')
+  await expect(status).toHaveText('Answer supported')
+  await expect(page.locator('.os-claims > li')).toHaveCount(4)
+  await page.getByRole('button', { name: 'Test an unsupported question' }).click()
+  await expect(status).toHaveText('Unsupported question')
   await expect(page.getByText(/do not support an answer/)).toBeVisible()
 })
 
-test('forced static mode retains the structured renderer equivalent', async ({ page }) => {
-  await page.goto('/archive?v2renderer=static', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByTestId('backend-status')).toHaveText('Static · DOM/SVG')
-  await expect(page.getByRole('list', { name: 'Equivalent structured retrieval representation' })).toBeVisible()
-  await expect(page.locator('canvas')).toHaveCount(0)
+test('Institutional OS exposes exclusions, source passages, and deterministic trace', async ({ page }) => {
+  await page.goto('/os', { waitUntil: 'domcontentloaded' })
+  await page.getByLabel('Identity').selectOption('identity-procurement')
+  await expect(page.locator('.os-exclusions')).toContainText('superseded')
+  await page.locator('.os-claims button').first().click()
+  await expect(page.locator('.os-inspector blockquote')).toBeVisible()
+  await expect(page.locator('.os-trace li')).not.toHaveCount(0)
+  await expect(page.locator('.os-trace')).toContainText('No confidence score')
 })
 
-test('reduced motion selects the reduced tier', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/os?v2renderer=webgl', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByText('reduced', { exact: true })).toBeVisible()
-  await expect(page.getByText('Reduced', { exact: true })).toBeVisible()
+test('Living Archive exposes source folios and the complete version lineage', async ({ page }) => {
+  await page.goto('/archive', { waitUntil: 'domcontentloaded' })
+  await expect(page.getByRole('heading', { name: 'Why Nova Industrial was selected for Project Atlas' })).toBeVisible()
+  await expect(page.locator('.archive-folios > ol > li')).not.toHaveCount(0)
+  await expect(page.locator('.archive-chronology li')).toHaveCount(3)
+  await page.locator('.archive-folios > ol > li button').first().click()
+  await expect(page.locator('.archive-folio__reading blockquote')).toBeVisible()
 })
 
-test('mobile chooser and direction page do not overflow', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile project only')
-  for (const route of ['/', '/observatory?v2renderer=static']) {
+test('all shared light and dark palettes update every direction', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'desktop project only')
+  for (const route of ['/observatory', '/os', '/archive']) {
     await page.goto(route, { waitUntil: 'domcontentloaded' })
-    const widths = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }))
-    expect(widths.document).toBeLessThanOrEqual(widths.viewport)
+    for (const theme of themes) {
+      await page.getByLabel('Reading mode').selectOption(theme.mode)
+      await page.getByLabel('Color palette').selectOption(theme.id)
+      await expect(page.locator('html')).toHaveAttribute('data-v2-theme', theme.id)
+      await expect(page.locator('html')).toHaveAttribute('data-v2-color-mode', theme.mode)
+      await expect(page.locator('html')).toHaveCSS('--color-bg', theme.colors.background)
+    }
   }
 })
 
-test('WebGL renderer initializes when the browser exposes WebGL 2', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'chromium', 'desktop project only')
-  const consoleErrors: string[] = []
-  page.on('console', (message) => {
-    if (message.type() === 'error') consoleErrors.push(message.text())
-  })
-
-  await page.goto('/os?v2renderer=webgl&v2quality=reduced', { waitUntil: 'domcontentloaded' })
-  const status = page.getByTestId('backend-status')
-  await expect(status).toHaveText(/WebGL 2 · Three\.js backend|Static · DOM\/SVG/, { timeout: 15_000 })
-  await expect.poll(async () => {
-    const label = await status.textContent()
-    const canvasCount = await page.locator('canvas').count()
-    return label?.startsWith('WebGL') ? canvasCount === 1 : label === 'Static · DOM/SVG' && canvasCount === 0
-  }).toBe(true)
-  expect(consoleErrors).toEqual([])
-})
-
-test('all twelve palettes update DOM and live renderer theme state', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'chromium', 'desktop project only')
-  const routeByDirection = {
-    observatory: '/observatory',
-    'institutional-os': '/os',
-    'living-archive': '/archive',
-  } as const
-
-  for (const [direction, route] of Object.entries(routeByDirection)) {
-    await page.goto(`${route}?v2renderer=webgl&v2quality=reduced`, { waitUntil: 'domcontentloaded' })
-    const directionThemes = themes.filter((theme) => theme.directionId === direction)
-    for (const theme of directionThemes) {
-      if (direction === 'observatory') {
-        await page.getByLabel('Instrument finish').selectOption(theme.id)
-      } else {
-        await page.getByLabel(theme.name).check()
-      }
-      await expect(page.locator('html')).toHaveAttribute('data-v2-theme', theme.id)
-      await expect(page.locator('html')).toHaveCSS('--color-bg', theme.colors.background)
-      if (direction !== 'observatory') {
-        const backend = await page.getByTestId('backend-status').textContent()
-        if (backend?.startsWith('WebGL')) {
-          await expect(page.locator('canvas')).toHaveAttribute('data-v2-theme', theme.id)
-        }
-      }
-    }
+test('mobile pages remain within the document viewport', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile project only')
+  for (const route of routes) {
+    await page.goto(route, { waitUntil: 'domcontentloaded' })
+    const widths = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }))
+    expect(widths.document).toBeLessThanOrEqual(widths.viewport)
   }
 })

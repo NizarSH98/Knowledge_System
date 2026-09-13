@@ -1,27 +1,38 @@
-import type { DirectionId } from '../directions/registry.ts'
-import { defaultThemeFor, themeById } from './palettes.ts'
+import { defaultTheme, themeById } from './palettes.ts'
+import type { ThemeMode } from './tokens.ts'
 
-const STORAGE_PREFIX = 'knowledge-systems:v2:theme:'
+const ACTIVE_THEME_KEY = 'knowledge-systems:v2:theme'
+const MODE_THEME_PREFIX = 'knowledge-systems:v2:theme-mode:'
 
-export function storedThemeId(directionId: DirectionId): string {
+export function storedThemeId(): string {
   const urlThemeId = new URLSearchParams(window.location.search).get('v2theme')
-  const urlTheme = urlThemeId ? themeById(urlThemeId) : undefined
-  if (urlTheme?.directionId === directionId) return urlTheme.id
+  if (urlThemeId && themeById(urlThemeId)) return urlThemeId
 
   try {
-    const storedId = window.localStorage.getItem(`${STORAGE_PREFIX}${directionId}`)
-    const storedTheme = storedId ? themeById(storedId) : undefined
-    if (storedTheme?.directionId === directionId) return storedTheme.id
+    const storedId = window.localStorage.getItem(ACTIVE_THEME_KEY)
+    if (storedId && themeById(storedId)) return storedId
   } catch {
     // Storage is an enhancement. Private browsing policies must not block the UI.
   }
 
-  return defaultThemeFor(directionId).id
+  return defaultTheme.id
 }
 
-export function persistThemeId(directionId: DirectionId, themeId: string): void {
+export function storedThemeForMode(mode: ThemeMode): string | undefined {
   try {
-    window.localStorage.setItem(`${STORAGE_PREFIX}${directionId}`, themeId)
+    const storedId = window.localStorage.getItem(`${MODE_THEME_PREFIX}${mode}`)
+    return storedId && themeById(storedId)?.mode === mode ? storedId : undefined
+  } catch {
+    return undefined
+  }
+}
+
+export function persistThemeId(themeId: string): void {
+  const theme = themeById(themeId)
+  if (!theme) return
+  try {
+    window.localStorage.setItem(ACTIVE_THEME_KEY, themeId)
+    window.localStorage.setItem(`${MODE_THEME_PREFIX}${theme.mode}`, themeId)
   } catch {
     // Keep the in-memory selection when storage is unavailable.
   }

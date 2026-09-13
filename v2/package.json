@@ -10,10 +10,12 @@
     "dev": "vite",
     "build": "tsc -p tsconfig.json --noEmit && vite build && node scripts/finalize-pages-build.ts",
     "capture:observatory": "node scripts/capture-observatory.ts",
+    "capture:review": "node scripts/capture-review.ts",
     "preview": "vite preview --base /Knowledge_System/",
     "preview:test": "vite preview --base /",
     "test": "vite build --mode test && playwright test",
     "validate:model": "node scripts/validate-model.ts",
+    "validate:themes": "node scripts/validate-themes.ts",
     "verify:pages": "node scripts/verify-pages-preview.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

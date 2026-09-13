@@ -5,14 +5,19 @@ import { HomePage } from './pages/HomePage.tsx'
 import { useRoute } from './router.ts'
 import { V2_ROUTES } from './routes.ts'
 
-const DirectionFoundationPage = lazy(async () => {
-  const module = await import('./pages/DirectionFoundationPage.tsx')
-  return { default: module.DirectionFoundationPage }
-})
-
 const ObservatoryPage = lazy(async () => {
   const module = await import('../directions/observatory/ObservatoryPage.tsx')
   return { default: module.ObservatoryPage }
+})
+
+const InstitutionalOSPage = lazy(async () => {
+  const module = await import('../directions/institutional-os/InstitutionalOSPage.tsx')
+  return { default: module.InstitutionalOSPage }
+})
+
+const LivingArchivePage = lazy(async () => {
+  const module = await import('../directions/living-archive/LivingArchivePage.tsx')
+  return { default: module.LivingArchivePage }
 })
 
 const ComparePlaceholderPage = lazy(async () => {
@@ -45,8 +50,10 @@ export function V2App() {
       <Suspense fallback={<main id="main-content" className="route-loading"><p>Preparing exploration…</p></main>}>
         {direction?.id === 'observatory' ? (
           <ObservatoryPage />
-        ) : direction ? (
-          <DirectionFoundationPage direction={direction} route={route} />
+        ) : direction?.id === 'institutional-os' ? (
+          <InstitutionalOSPage />
+        ) : direction?.id === 'living-archive' ? (
+          <LivingArchivePage />
         ) : route === V2_ROUTES.compare ? (
           <ComparePlaceholderPage />
         ) : (

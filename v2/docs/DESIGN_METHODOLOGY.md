@@ -1,5 +1,7 @@
 # Design methodology
 
+> The original checkpoint sequence below is preserved for decision history. The approved integrated strategy now uses all three directions in one product; see `INTEGRATED_REDESIGN.md`.
+
 ## Purpose of the exploration
 
 The work is a comparison instrument, not a disguised selection. Each direction must become credible enough to lose fairly: if any candidate looks intentionally weaker, the comparison has failed.

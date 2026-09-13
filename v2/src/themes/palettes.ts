@@ -1,21 +1,18 @@
-import type { DirectionId } from '../directions/registry.ts'
-import type {
-  GraphicsTheme,
-  SemanticColorMap,
-  ThemeDefinition,
-} from './tokens.ts'
+import type { GraphicsTheme, SemanticColorMap, ThemeDefinition, ThemeMode } from './tokens.ts'
 
 function defineTheme(
   id: string,
   name: string,
-  directionId: DirectionId,
+  mode: ThemeMode,
+  character: string,
   colors: SemanticColorMap,
   postprocessingCharacter: GraphicsTheme['postprocessingCharacter'],
 ): ThemeDefinition {
   return {
     id,
     name,
-    directionId,
+    mode,
+    character,
     colors,
     graphics: {
       background: colors.background,
@@ -32,80 +29,91 @@ function defineTheme(
 }
 
 export const themes: readonly ThemeDefinition[] = [
-  defineTheme('night-instrument', 'Night Instrument', 'observatory', {
-    background: '#07090B', surface: '#0D1115', surfaceRaised: '#141A20', text: '#EEF3F1', textMuted: '#84908B',
-    primary: '#6FD7BD', evidence: '#D4E86A', current: '#6FD7BD', restricted: '#EC6A76', superseded: '#9B8770',
-    warning: '#F0B45D', relationship: '#789DFF', border: '#27302F', focus: '#F0B45D', hover: '#182126', selection: '#203832',
+  defineTheme('polar-sage', 'Polar Sage', 'light', 'Cool scientific calm', {
+    background: '#EDF1EE', surface: '#E3E9E5', surfaceRaised: '#F8FAF7', text: '#101616', textMuted: '#53605C',
+    primary: '#176E62', evidence: '#53661D', current: '#176E62', restricted: '#96394B', superseded: '#736B60',
+    warning: '#8C591D', relationship: '#315BA8', border: '#B9C5BE', focus: '#254F91', hover: '#D8E2DC', selection: '#C8DED6',
   }, 'clean'),
-  defineTheme('deep-cobalt', 'Deep Cobalt', 'observatory', {
-    background: '#080B13', surface: '#101625', surfaceRaised: '#172033', text: '#F2F4F7', textMuted: '#8D96A8',
-    primary: '#5B7CFA', evidence: '#DFCA69', current: '#56D0C2', restricted: '#DA6579', superseded: '#8E94A5',
-    warning: '#E79C61', relationship: '#56D0C2', border: '#2B354A', focus: '#DFCA69', hover: '#1C2740', selection: '#24345F',
+  defineTheme('warm-paper', 'Warm Paper', 'light', 'Quiet editorial warmth', {
+    background: '#F2EFE7', surface: '#E8E4DA', surfaceRaised: '#FCFAF5', text: '#1B1A17', textMuted: '#625D53',
+    primary: '#315A8F', evidence: '#566B35', current: '#286957', restricted: '#93424A', superseded: '#746C60',
+    warning: '#8D6027', relationship: '#526B91', border: '#CEC7BA', focus: '#315A8F', hover: '#E1DCD0', selection: '#D7E0EB',
+  }, 'paper'),
+  defineTheme('mineral-blue', 'Mineral Blue', 'light', 'Measured technical clarity', {
+    background: '#ECF0F3', surface: '#E0E7EC', surfaceRaised: '#F8FAFB', text: '#11181D', textMuted: '#53616A',
+    primary: '#315F7D', evidence: '#52652A', current: '#246B62', restricted: '#994555', superseded: '#6E7377',
+    warning: '#8D5E2C', relationship: '#4A6591', border: '#BEC9D0', focus: '#315F7D', hover: '#D8E2E8', selection: '#CEDFE8',
   }, 'cool'),
-  defineTheme('polar-instrument', 'Polar Instrument', 'observatory', {
-    background: '#EDF1EE', surface: '#E4E9E5', surfaceRaised: '#F7F8F5', text: '#101616', textMuted: '#677370',
-    primary: '#167B6C', evidence: '#798C27', current: '#167B6C', restricted: '#AA3F52', superseded: '#8E8678',
-    warning: '#A96B21', relationship: '#315BB5', border: '#C7D0CA', focus: '#315BB5', hover: '#DCE5E0', selection: '#CBE1DA',
-  }, 'clean'),
-  defineTheme('graphite-spectral', 'Graphite Spectral', 'observatory', {
-    background: '#111110', surface: '#191918', surfaceRaised: '#21211F', text: '#F1EEE6', textMuted: '#8E8A80',
-    primary: '#91C9BC', evidence: '#C7BA72', current: '#91C9BC', restricted: '#C56E70', superseded: '#877D70',
-    warning: '#D79A61', relationship: '#8AA2C8', border: '#35342F', focus: '#D79A61', hover: '#292824', selection: '#31413D',
+  defineTheme('quiet-clay', 'Quiet Clay', 'light', 'Architectural and grounded', {
+    background: '#F1ECE8', surface: '#E7DFD9', surfaceRaised: '#FBF8F5', text: '#1E1916', textMuted: '#665A53',
+    primary: '#754536', evidence: '#50613A', current: '#356A5D', restricted: '#98404A', superseded: '#786C64',
+    warning: '#8D5E2E', relationship: '#5C6685', border: '#CFC2B9', focus: '#684F78', hover: '#E0D6CF', selection: '#E6D1C8',
   }, 'material'),
-
-  defineTheme('black-cobalt', 'Black / Cobalt', 'institutional-os', {
-    background: '#0C0D0F', surface: '#121418', surfaceRaised: '#1A1D22', text: '#F4F4F1', textMuted: '#8A9098',
-    primary: '#5174E8', evidence: '#A9C77A', current: '#5FB89F', restricted: '#D66372', superseded: '#777E88',
-    warning: '#D49A54', relationship: '#7189D6', border: '#343940', focus: '#7F9AFF', hover: '#20242A', selection: '#25345F',
+  defineTheme('parchment-olive', 'Parchment Olive', 'light', 'Institutional naturalism', {
+    background: '#EFEEE4', surface: '#E4E4D6', surfaceRaised: '#FAF9F1', text: '#1A1B16', textMuted: '#5D6054',
+    primary: '#4E6743', evidence: '#75642A', current: '#346858', restricted: '#913E47', superseded: '#716E61',
+    warning: '#865D27', relationship: '#526A83', border: '#C8C8B8', focus: '#3D5F75', hover: '#DCDCCD', selection: '#D4DEC9',
+  }, 'paper'),
+  defineTheme('mist-lilac', 'Mist Lilac', 'light', 'Soft analytical focus', {
+    background: '#EFEEF2', surface: '#E4E3E9', surfaceRaised: '#FAF9FC', text: '#18171D', textMuted: '#5F5B68',
+    primary: '#5A5079', evidence: '#526433', current: '#2D6C61', restricted: '#974451', superseded: '#716C76',
+    warning: '#8C5D2D', relationship: '#4F6595', border: '#C7C4CE', focus: '#554A78', hover: '#DDDAE3', selection: '#DCD6E8',
   }, 'clean'),
-  defineTheme('warm-white-ink', 'Warm White / Ink', 'institutional-os', {
-    background: '#F3F1EA', surface: '#ECE9E0', surfaceRaised: '#FAF9F5', text: '#171918', textMuted: '#6F736F',
-    primary: '#244F9E', evidence: '#617C33', current: '#257D68', restricted: '#9E4050', superseded: '#8A857A',
-    warning: '#9D682A', relationship: '#5574A8', border: '#D1CEC4', focus: '#244F9E', hover: '#E2DED3', selection: '#DCE4F2',
+  defineTheme('sandstone', 'Sandstone', 'light', 'Warm operational restraint', {
+    background: '#F1ECE3', surface: '#E6DED2', surfaceRaised: '#FCF9F3', text: '#201A15', textMuted: '#685B50',
+    primary: '#725133', evidence: '#506947', current: '#32695B', restricted: '#954149', superseded: '#746B61',
+    warning: '#895921', relationship: '#596A84', border: '#CEC2B2', focus: '#49617F', hover: '#DED4C7', selection: '#E4D6C4',
   }, 'warm'),
-  defineTheme('steel-teal', 'Steel / Teal', 'institutional-os', {
-    background: '#101518', surface: '#172024', surfaceRaised: '#202B30', text: '#EFF4F2', textMuted: '#8E9C99',
-    primary: '#4AAEAB', evidence: '#C0CA6D', current: '#72C7A3', restricted: '#D46C75', superseded: '#7F8D8B',
-    warning: '#DCA25B', relationship: '#6F9EAA', border: '#304045', focus: '#C0CA6D', hover: '#253339', selection: '#274B4A',
+  defineTheme('soft-cyan', 'Soft Cyan', 'light', 'Airy systems workspace', {
+    background: '#EAF1F1', surface: '#DDE8E7', surfaceRaised: '#F7FBFA', text: '#111A1A', textMuted: '#506261',
+    primary: '#24676C', evidence: '#566526', current: '#246A5B', restricted: '#964250', superseded: '#687473',
+    warning: '#875C26', relationship: '#426B8A', border: '#B9CBC9', focus: '#315F83', hover: '#D3E2E0', selection: '#C7DFDC',
   }, 'cool'),
-  defineTheme('oxide-paper', 'Oxide / Paper', 'institutional-os', {
-    background: '#EDEAE4', surface: '#E4E0D8', surfaceRaised: '#F8F6F1', text: '#211D1A', textMuted: '#736B64',
-    primary: '#7C3E30', evidence: '#68753B', current: '#397668', restricted: '#A44249', superseded: '#8E8175',
-    warning: '#A26A2F', relationship: '#85645A', border: '#CCC5BB', focus: '#7C3E30', hover: '#DDD7CD', selection: '#E4CCC4',
-  }, 'material'),
 
-  defineTheme('ivory-oxblood', 'Ivory / Oxblood', 'living-archive', {
-    background: '#EEEAE0', surface: '#F8F5EC', surfaceRaised: '#FFFFFF', text: '#201C19', textMuted: '#736C63',
-    primary: '#783A38', evidence: '#536B50', current: '#536B50', restricted: '#8A3038', superseded: '#948777',
-    warning: '#9C7A48', relationship: '#345A88', border: '#D7D0C3', focus: '#345A88', hover: '#E8E1D4', selection: '#E7D5CE',
-  }, 'paper'),
-  defineTheme('charcoal-brass', 'Charcoal / Brass', 'living-archive', {
-    background: '#11110F', surface: '#1A1916', surfaceRaised: '#23211D', text: '#F0EBE0', textMuted: '#999184',
-    primary: '#C09A5D', evidence: '#9DB082', current: '#9DB082', restricted: '#C46A67', superseded: '#82796E',
-    warning: '#D0AD6A', relationship: '#7894B3', border: '#39352E', focus: '#D0AD6A', hover: '#292720', selection: '#453A28',
+  defineTheme('night-instrument', 'Night Instrument', 'dark', 'Precision scientific device', {
+    background: '#07090B', surface: '#0D1115', surfaceRaised: '#141A20', text: '#EEF3F1', textMuted: '#98A39F',
+    primary: '#6FD7BD', evidence: '#D4E86A', current: '#6FD7BD', restricted: '#EC7C87', superseded: '#AA9780',
+    warning: '#F0B45D', relationship: '#86A6FF', border: '#34403E', focus: '#F0B45D', hover: '#182126', selection: '#203832',
+  }, 'clean'),
+  defineTheme('deep-cobalt', 'Deep Cobalt', 'dark', 'Institutional computation', {
+    background: '#080B13', surface: '#101625', surfaceRaised: '#172033', text: '#F2F4F7', textMuted: '#A5AEC0',
+    primary: '#708CFF', evidence: '#E0CD75', current: '#67D7CA', restricted: '#E17B8C', superseded: '#A1A8B8',
+    warning: '#EDAD70', relationship: '#64D4C8', border: '#36435D', focus: '#E0CD75', hover: '#1C2740', selection: '#283B69',
+  }, 'cool'),
+  defineTheme('graphite-spectral', 'Graphite Spectral', 'dark', 'Premium material neutrality', {
+    background: '#111110', surface: '#191918', surfaceRaised: '#222220', text: '#F1EEE6', textMuted: '#AAA59A',
+    primary: '#9ED2C5', evidence: '#D0C47E', current: '#9ED2C5', restricted: '#D98284', superseded: '#9C9182',
+    warning: '#E0AA73', relationship: '#9AB1D4', border: '#403E38', focus: '#E0AA73', hover: '#2A2925', selection: '#344640',
   }, 'material'),
-  defineTheme('bone-cobalt', 'Bone / Cobalt', 'living-archive', {
-    background: '#F0EEE8', surface: '#FAF9F5', surfaceRaised: '#FFFFFF', text: '#151719', textMuted: '#707276',
-    primary: '#315A9E', evidence: '#627443', current: '#627443', restricted: '#A4434D', superseded: '#8B8278',
-    warning: '#A66C35', relationship: '#315A9E', border: '#D6D1C8', focus: '#315A9E', hover: '#E7E3DB', selection: '#DCE4F1',
-  }, 'paper'),
-  defineTheme('forest-parchment', 'Forest / Parchment', 'living-archive', {
-    background: '#10201B', surface: '#172A23', surfaceRaised: '#20372E', text: '#F1EFE5', textMuted: '#96A39B',
-    primary: '#B7A06C', evidence: '#91B383', current: '#91B383', restricted: '#C16C6B', superseded: '#817F72',
-    warning: '#D4BE82', relationship: '#7D9FC0', border: '#385046', focus: '#D4BE82', hover: '#294239', selection: '#3E4934',
+  defineTheme('forest-slate', 'Forest Slate', 'dark', 'Calm governed depth', {
+    background: '#0E1714', surface: '#15211D', surfaceRaised: '#1D2B26', text: '#EDF3EF', textMuted: '#9DADA5',
+    primary: '#7FC0A5', evidence: '#C5BD7D', current: '#7FC0A5', restricted: '#D77B7C', superseded: '#9A9687',
+    warning: '#D7A56B', relationship: '#83ACC8', border: '#344A40', focus: '#D7BC7A', hover: '#24352F', selection: '#304B40',
+  }, 'material'),
+  defineTheme('aubergine-ink', 'Aubergine Ink', 'dark', 'Quiet cultural intelligence', {
+    background: '#171218', surface: '#211922', surfaceRaised: '#2B222D', text: '#F3EDF2', textMuted: '#B0A2AE',
+    primary: '#C79ABD', evidence: '#C0C580', current: '#8CC8AE', restricted: '#E0808A', superseded: '#A397A1',
+    warning: '#DCA66C', relationship: '#99A9D3', border: '#493B49', focus: '#DBB47B', hover: '#312634', selection: '#4A3649',
+  }, 'warm'),
+  defineTheme('bronze-night', 'Bronze Night', 'dark', 'Warm archival instrument', {
+    background: '#161411', surface: '#201D19', surfaceRaised: '#2A2620', text: '#F2EEE7', textMuted: '#ADA397',
+    primary: '#C9A06F', evidence: '#B0BF84', current: '#8EC4A8', restricted: '#D9807F', superseded: '#9E9385',
+    warning: '#DAB075', relationship: '#8CA8C2', border: '#463F35', focus: '#DAB075', hover: '#302B24', selection: '#4B3E2E',
   }, 'material'),
 ]
 
-export function themesForDirection(directionId: DirectionId): readonly ThemeDefinition[] {
-  return themes.filter((theme) => theme.directionId === directionId)
+export function themesForMode(mode: ThemeMode): readonly ThemeDefinition[] {
+  return themes.filter((theme) => theme.mode === mode)
 }
 
 export function themeById(themeId: string): ThemeDefinition | undefined {
   return themes.find((theme) => theme.id === themeId)
 }
 
-export function defaultThemeFor(directionId: DirectionId): ThemeDefinition {
-  const theme = themesForDirection(directionId)[0]
-  if (!theme) throw new Error(`No theme configured for ${directionId}`)
+export function defaultThemeForMode(mode: ThemeMode): ThemeDefinition {
+  const theme = themesForMode(mode)[0]
+  if (!theme) throw new Error(`No ${mode} theme configured`)
   return theme
 }
+
+export const defaultTheme = defaultThemeForMode('light')
