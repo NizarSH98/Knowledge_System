@@ -29,3 +29,27 @@
 **Decision:** Record researched exact versions in the isolated manifest but defer install/lockfile generation.
 
 **Reason:** This preserves the requested research-before-install sequence and gives the founder a clean review point.
+
+## 2026-09-13 · Resolve proposed versions at Checkpoint 2
+
+**Decision:** Verify the proposed package versions and compatibility against npm, then install and commit the resolved dependency graph to `package-lock.json`. Add the matching `@types/three` package so renderer code participates in strict type checking.
+
+**Reason:** Research versions were hypotheses, not project facts. The lockfile now records the dependency tree that actually builds and tests together.
+
+## 2026-09-13 · Keep the five-route router local
+
+**Decision:** Use a typed History API store instead of adding a routing package.
+
+**Reason:** The route set is fixed and shallow. The local store supports navigation, back/forward, query state, lazy route chunks, and a repository prefix without imposing a framework on the direction trees.
+
+## 2026-09-13 · Share mechanics, withhold composition
+
+**Decision:** Checkpoint 2 exposes a deliberately neutral foundation page and chooser. Direction folders still contain no component implementations.
+
+**Reason:** Capability detection, quality, theme application, routing, and retrieval are shared mechanics. Layout, typography, navigation grammar, interaction choreography, and visual hierarchy remain direction-owned.
+
+## 2026-09-13 · Test compiled assets serially
+
+**Decision:** Playwright builds a test-mode production bundle, serves it with Vite Preview, and runs one worker across desktop and mobile projects.
+
+**Reason:** It verifies the deployable asset graph and avoids Windows cold-start/HMR contention. The production build continues to emit the GitHub Pages base path.
