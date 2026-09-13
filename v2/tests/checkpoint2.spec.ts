@@ -33,12 +33,12 @@ test('route navigation and palette state work without reload', async ({ page }) 
   await page.getByRole('link', { name: /Enter direction/ }).first().click()
   await expect(page).toHaveURL(/\/v2\/observatory/)
   expect(await page.evaluate(() => (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel)).toBe('preserved')
-  await page.getByLabel('Polar Instrument').check()
+  await page.getByLabel('Instrument finish').selectOption('polar-instrument')
   await expect(page).toHaveURL(/v2theme=polar-instrument/)
   await expect(page.locator('html')).toHaveAttribute('data-v2-theme', 'polar-instrument')
   await expect(page.locator('html')).toHaveCSS('--color-bg', '#EDF1EE')
   await page.reload()
-  await expect(page.getByLabel('Polar Instrument')).toBeChecked()
+  await expect(page.getByLabel('Instrument finish')).toHaveValue('polar-instrument')
 })
 
 test('shared retrieval behavior changes with identity and refuses unsupported questions', async ({ page }) => {
@@ -67,7 +67,7 @@ test('forced static mode retains the structured renderer equivalent', async ({ p
 
 test('reduced motion selects the reduced tier', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/v2/observatory?v2renderer=webgl', { waitUntil: 'domcontentloaded' })
+  await page.goto('/v2/os?v2renderer=webgl', { waitUntil: 'domcontentloaded' })
   await expect(page.getByText('reduced', { exact: true })).toBeVisible()
   await expect(page.getByText('Reduced', { exact: true })).toBeVisible()
 })
@@ -88,7 +88,7 @@ test('WebGL renderer initializes when the browser exposes WebGL 2', async ({ pag
     if (message.type() === 'error') consoleErrors.push(message.text())
   })
 
-  await page.goto('/v2/observatory?v2renderer=webgl&v2quality=reduced', { waitUntil: 'domcontentloaded' })
+  await page.goto('/v2/os?v2renderer=webgl&v2quality=reduced', { waitUntil: 'domcontentloaded' })
   const status = page.getByTestId('backend-status')
   await expect(status).toHaveText(/WebGL 2 · Three\.js backend|Static · DOM\/SVG/, { timeout: 15_000 })
   await expect.poll(async () => {
@@ -111,12 +111,18 @@ test('all twelve palettes update DOM and live renderer theme state', async ({ pa
     await page.goto(`${route}?v2renderer=webgl&v2quality=reduced`, { waitUntil: 'domcontentloaded' })
     const directionThemes = themes.filter((theme) => theme.directionId === direction)
     for (const theme of directionThemes) {
-      await page.getByLabel(theme.name).check()
+      if (direction === 'observatory') {
+        await page.getByLabel('Instrument finish').selectOption(theme.id)
+      } else {
+        await page.getByLabel(theme.name).check()
+      }
       await expect(page.locator('html')).toHaveAttribute('data-v2-theme', theme.id)
       await expect(page.locator('html')).toHaveCSS('--color-bg', theme.colors.background)
-      const backend = await page.getByTestId('backend-status').textContent()
-      if (backend?.startsWith('WebGL')) {
-        await expect(page.locator('canvas')).toHaveAttribute('data-v2-theme', theme.id)
+      if (direction !== 'observatory') {
+        const backend = await page.getByTestId('backend-status').textContent()
+        if (backend?.startsWith('WebGL')) {
+          await expect(page.locator('canvas')).toHaveAttribute('data-v2-theme', theme.id)
+        }
       }
     }
   }

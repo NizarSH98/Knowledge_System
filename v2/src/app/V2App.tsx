@@ -10,6 +10,11 @@ const DirectionFoundationPage = lazy(async () => {
   return { default: module.DirectionFoundationPage }
 })
 
+const ObservatoryPage = lazy(async () => {
+  const module = await import('../directions/observatory/ObservatoryPage.tsx')
+  return { default: module.ObservatoryPage }
+})
+
 const ComparePlaceholderPage = lazy(async () => {
   const module = await import('./pages/ComparePlaceholderPage.tsx')
   return { default: module.ComparePlaceholderPage }
@@ -25,7 +30,7 @@ export function V2App() {
   }, [direction, route])
 
   return (
-    <div className="v2-shell">
+    <div className={`v2-shell${direction ? ` v2-shell--${direction.id}` : ''}`}>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="shell-header">
         <RouteLink className="wordmark" to={V2_ROUTES.home} aria-label="Knowledge Systems V2 home">
@@ -38,7 +43,9 @@ export function V2App() {
       </header>
 
       <Suspense fallback={<main id="main-content" className="route-loading"><p>Preparing exploration…</p></main>}>
-        {direction ? (
+        {direction?.id === 'observatory' ? (
+          <ObservatoryPage />
+        ) : direction ? (
           <DirectionFoundationPage direction={direction} route={route} />
         ) : route === V2_ROUTES.compare ? (
           <ComparePlaceholderPage />

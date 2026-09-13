@@ -47,3 +47,7 @@ Each direction owns its component tree and styles. Shared modules may express fa
 ## Checkpoint 2 composition boundary
 
 The neutral shell, palette controls, capability/quality status, query probe, and five-stage renderer diagnostic exist to verify shared mechanics. The files under `src/directions/*` still contain contracts and markers only. Each direction will replace the neutral foundation page with its own component tree and stylesheet; no shared page shell, card grammar, grid, type scale, or animation preset is mandatory.
+
+## Checkpoint 3 composition boundary
+
+The Observatory now replaces its neutral foundation with a lazy, direction-owned component tree and stylesheet. It consumes shared route, theme, data, permission, retrieval, and provenance mechanics, but owns its semantic projections, SVG composition, focus lens, query choreography, source inspector, version rail, typography, and responsive rules. Institutional OS and Living Archive still use the neutral foundation. No Observatory layout primitive has moved into `src/shared`.
