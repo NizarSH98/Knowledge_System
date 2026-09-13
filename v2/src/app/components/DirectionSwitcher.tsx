@@ -13,7 +13,7 @@ export function DirectionSwitcher({ currentRoute }: DirectionSwitcherProps) {
       {directions.map((direction) => (
         <RouteLink
           key={direction.id}
-          to={direction.route as V2Route}
+          to={direction.route}
           aria-current={currentRoute === direction.route ? 'page' : undefined}
         >
           <b>{direction.index}</b> {direction.name}

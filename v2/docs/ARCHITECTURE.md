@@ -26,7 +26,7 @@
 
 ## Route contract
 
-The five routes are defined in `src/app/routes.ts` and implemented by a small History API store in `src/app/router.ts`. It recognizes `/v2` even when a GitHub Pages repository prefix precedes it, preserves query parameters, and lazy-loads direction/compare foundations. The static host must still rewrite direct entries to the V2 HTML document; client routing cannot create a server rewrite.
+The five app-relative routes are defined in `src/app/routes.ts` and implemented by a small History API store in `src/app/router.ts`. The router derives its public prefix from Vite's `BASE_URL`, preserves query parameters, and lazy-loads direction/compare foundations. The production build emits a physical `index.html` for each known route so GitHub Pages can serve direct entries without a hash router or server rewrite.
 
 ## Direction isolation
 

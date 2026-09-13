@@ -1,5 +1,5 @@
 import type { AnchorHTMLAttributes, MouseEvent } from 'react'
-import { navigate } from '../../app/router.ts'
+import { navigate, routeHref } from '../../app/router.ts'
 import type { V2Route } from '../../app/routes.ts'
 
 interface RouteLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
@@ -22,5 +22,5 @@ export function RouteLink({ to, onClick, ...props }: RouteLinkProps) {
     navigate(to)
   }
 
-  return <a href={to} onClick={handleClick} {...props} />
+  return <a href={routeHref(to)} onClick={handleClick} {...props} />
 }

@@ -80,22 +80,33 @@ structured-data, robots, and sitemap metadata use the same public URL.
 
 ## Deploying to GitHub Pages
 
-Asset paths are relative (`base: './'` in `vite.config.ts`), so the same build
-works from the configured GitHub Pages project path or a custom domain.
+The public site currently serves V1 from
+`https://nizarsh98.github.io/Knowledge_System/`. V1 remains available as the
+root application for rollback and local comparison, but it is no longer a
+deployment entry point.
 
-**Manual:**
+The prepared release workflow builds the isolated application in `v2/` and
+publishes `v2/dist`. It is intentionally manual-only, so commits and merges do
+not change the live site. Before the approved launch, set Pages to use
+**GitHub Actions**, then manually dispatch **Deploy V2 to GitHub Pages**.
+
+V2's production build uses `/Knowledge_System/` as its asset and route base.
+It emits static entry documents for `/observatory/`, `/os/`, `/archive/`, and
+`/compare/`, allowing those GitHub Pages URLs to load directly and survive a
+refresh without a hash router or a 404 rewrite.
+
+To validate the exact deployment artifact without publishing it:
 
 ```bash
+cd v2
+npm ci
 npm run build
-npx gh-pages -d dist        # (or: npm run deploy)
+npm run preview
 ```
 
-Then in the repository settings enable Pages → deploy from the `gh-pages`
-branch. `npm run deploy` requires the folder to be a git repository with a
-GitHub remote.
-
-**Automatic:** `.github/workflows/deploy.yml` deploys on push to `main` when
-Pages is set to the "GitHub Actions" source in the repository settings.
+Open `http://localhost:4175/Knowledge_System/`. There is deliberately no root
+`npm run deploy` command and no `gh-pages` dependency; GitHub Actions is the
+single release path.
 
 ## Adaptive quality
 

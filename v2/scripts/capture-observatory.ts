@@ -7,7 +7,7 @@ const themes = ['night-instrument', 'deep-cobalt', 'polar-instrument', 'graphite
 const outputRoot = join(process.cwd(), 'artifacts', 'observatory')
 
 async function open(page: Page, theme: string) {
-  await page.goto(`${baseUrl}/v2/observatory?v2theme=${theme}`, { waitUntil: 'domcontentloaded' })
+  await page.goto(`${baseUrl}/observatory?v2theme=${theme}`, { waitUntil: 'domcontentloaded' })
   await page.getByRole('heading', { name: 'Observe how an answer becomes knowable.' }).waitFor()
 }
 

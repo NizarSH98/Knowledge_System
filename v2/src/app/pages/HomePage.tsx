@@ -4,7 +4,6 @@ import { RouteLink } from '../../shared/components/RouteLink.tsx'
 import { clearAppliedTheme } from '../../themes/theme-engine.ts'
 import { defaultThemeFor, themeById } from '../../themes/palettes.ts'
 import { storedThemeId } from '../../themes/theme-storage.ts'
-import type { V2Route } from '../routes.ts'
 import { ConceptPreview } from '../components/ConceptPreview.tsx'
 
 function DirectionCard({ direction }: { readonly direction: DirectionDefinition }) {
@@ -27,7 +26,7 @@ function DirectionCard({ direction }: { readonly direction: DirectionDefinition 
             </dd>
           </div>
         </dl>
-        <RouteLink className="enter-link" to={direction.route as V2Route}>
+        <RouteLink className="enter-link" to={direction.route}>
           Enter direction <span aria-hidden="true">↗</span>
         </RouteLink>
       </div>

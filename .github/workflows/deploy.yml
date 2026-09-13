@@ -1,11 +1,8 @@
-# Optional: deploys to GitHub Pages on push to main.
-# Manual deployment (npm run build → publish dist/) works without this.
-# Enable Pages with source "GitHub Actions" in the repository settings.
-name: Deploy to GitHub Pages
+# Prepared V2 release workflow. Manual dispatch is the only deployment trigger.
+# Enable Pages with source "GitHub Actions" only when the V2 launch is approved.
+name: Deploy V2 to GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -29,11 +26,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: v2/package-lock.json
       - run: npm ci
+        working-directory: v2
       - run: npm run build
+        working-directory: v2
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: v2/dist
       - id: deployment
         uses: actions/deploy-pages@v4

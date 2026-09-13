@@ -24,6 +24,7 @@ npm run build
 npm test
 ```
 
-The model validation checks referential integrity, cardinality targets, version families, and the four expected retrieval states. Browser tests build with a root test base and run the compiled app through Vite Preview; the normal production build retains `/Knowledge_System/v2/` for GitHub Pages.
+The model validation checks referential integrity, cardinality targets, version families, and the four expected retrieval states. Browser tests build with a root test base and run the compiled app through Vite Preview; the production candidate uses `/Knowledge_System/` and emits direct GitHub Pages entries for every application route.
 
 See `docs/CHECKPOINT_3.md` for the Observatory acceptance review, screenshot matrix, and verified results.
+See `docs/DEPLOYMENT.md` for local review URLs, artifact structure, and the intentionally manual release gate.

@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ command, mode }) => ({
-  base: command === 'build' && mode !== 'test' ? '/Knowledge_System/v2/' : '/',
+  base: command === 'build' && mode !== 'test' ? '/Knowledge_System/' : '/',
   plugins: [react()],
   build: {
     outDir: 'dist',

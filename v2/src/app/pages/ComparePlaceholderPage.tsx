@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { directions } from '../../directions/registry.ts'
 import { RouteLink } from '../../shared/components/RouteLink.tsx'
 import { clearAppliedTheme } from '../../themes/theme-engine.ts'
-import type { V2Route } from '../routes.ts'
 
 export function ComparePlaceholderPage() {
   useEffect(() => clearAppliedTheme(), [])
@@ -14,7 +13,7 @@ export function ComparePlaceholderPage() {
       <p>No scores, screenshots, or performance claims are fabricated at this checkpoint.</p>
       <div className="compare-placeholder__routes">
         {directions.map((direction) => (
-          <RouteLink key={direction.id} to={direction.route as V2Route}>
+          <RouteLink key={direction.id} to={direction.route}>
             <span>{direction.index}</span>{direction.name}
           </RouteLink>
         ))}

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { themes } from '../src/themes/palettes.ts'
 
-const routes = ['/v2', '/v2/observatory', '/v2/os', '/v2/archive', '/v2/compare'] as const
+const routes = ['/', '/observatory', '/os', '/archive', '/compare'] as const
 
 for (const route of routes) {
   test(`${route} loads without console errors`, async ({ page }) => {
@@ -17,7 +17,7 @@ for (const route of routes) {
 }
 
 test('chooser presents three genuinely distinct concepts', async ({ page }) => {
-  await page.goto('/v2', { waitUntil: 'domcontentloaded' })
+  await page.goto('/', { waitUntil: 'domcontentloaded' })
   await expect(page.getByRole('heading', { name: 'Three ways to understand organizational knowledge.' })).toBeVisible()
   await expect(page.getByRole('article')).toHaveCount(3)
   await expect(page.getByText('Trace an answer through evidence in space.')).toBeVisible()
@@ -26,12 +26,12 @@ test('chooser presents three genuinely distinct concepts', async ({ page }) => {
 })
 
 test('route navigation and palette state work without reload', async ({ page }) => {
-  await page.goto('/v2?test=route&v2renderer=static', { waitUntil: 'domcontentloaded' })
+  await page.goto('/?test=route&v2renderer=static', { waitUntil: 'domcontentloaded' })
   await page.evaluate(() => {
     ;(window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel = 'preserved'
   })
   await page.getByRole('link', { name: /Enter direction/ }).first().click()
-  await expect(page).toHaveURL(/\/v2\/observatory/)
+  await expect(page).toHaveURL(/\/observatory/)
   expect(await page.evaluate(() => (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel)).toBe('preserved')
   await page.getByLabel('Instrument finish').selectOption('polar-instrument')
   await expect(page).toHaveURL(/v2theme=polar-instrument/)
@@ -42,7 +42,7 @@ test('route navigation and palette state work without reload', async ({ page }) 
 })
 
 test('shared retrieval behavior changes with identity and refuses unsupported questions', async ({ page }) => {
-  await page.goto('/v2/os?v2renderer=static', { waitUntil: 'domcontentloaded' })
+  await page.goto('/os?v2renderer=static', { waitUntil: 'domcontentloaded' })
   const status = page.getByTestId('query-status')
   await expect(status).toHaveText('insufficient permissions')
 
@@ -59,7 +59,7 @@ test('shared retrieval behavior changes with identity and refuses unsupported qu
 })
 
 test('forced static mode retains the structured renderer equivalent', async ({ page }) => {
-  await page.goto('/v2/archive?v2renderer=static', { waitUntil: 'domcontentloaded' })
+  await page.goto('/archive?v2renderer=static', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('backend-status')).toHaveText('Static · DOM/SVG')
   await expect(page.getByRole('list', { name: 'Equivalent structured retrieval representation' })).toBeVisible()
   await expect(page.locator('canvas')).toHaveCount(0)
@@ -67,14 +67,14 @@ test('forced static mode retains the structured renderer equivalent', async ({ p
 
 test('reduced motion selects the reduced tier', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/v2/os?v2renderer=webgl', { waitUntil: 'domcontentloaded' })
+  await page.goto('/os?v2renderer=webgl', { waitUntil: 'domcontentloaded' })
   await expect(page.getByText('reduced', { exact: true })).toBeVisible()
   await expect(page.getByText('Reduced', { exact: true })).toBeVisible()
 })
 
 test('mobile chooser and direction page do not overflow', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile project only')
-  for (const route of ['/v2', '/v2/observatory?v2renderer=static']) {
+  for (const route of ['/', '/observatory?v2renderer=static']) {
     await page.goto(route, { waitUntil: 'domcontentloaded' })
     const widths = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }))
     expect(widths.document).toBeLessThanOrEqual(widths.viewport)
@@ -88,7 +88,7 @@ test('WebGL renderer initializes when the browser exposes WebGL 2', async ({ pag
     if (message.type() === 'error') consoleErrors.push(message.text())
   })
 
-  await page.goto('/v2/os?v2renderer=webgl&v2quality=reduced', { waitUntil: 'domcontentloaded' })
+  await page.goto('/os?v2renderer=webgl&v2quality=reduced', { waitUntil: 'domcontentloaded' })
   const status = page.getByTestId('backend-status')
   await expect(status).toHaveText(/WebGL 2 · Three\.js backend|Static · DOM\/SVG/, { timeout: 15_000 })
   await expect.poll(async () => {
@@ -102,9 +102,9 @@ test('WebGL renderer initializes when the browser exposes WebGL 2', async ({ pag
 test('all twelve palettes update DOM and live renderer theme state', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'chromium', 'desktop project only')
   const routeByDirection = {
-    observatory: '/v2/observatory',
-    'institutional-os': '/v2/os',
-    'living-archive': '/v2/archive',
+    observatory: '/observatory',
+    'institutional-os': '/os',
+    'living-archive': '/archive',
   } as const
 
   for (const [direction, route] of Object.entries(routeByDirection)) {

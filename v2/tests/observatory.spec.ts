@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test.describe('Knowledge Observatory', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/v2/observatory?v2theme=night-instrument', { waitUntil: 'domcontentloaded' })
+    await page.goto('/observatory?v2theme=night-instrument', { waitUntil: 'domcontentloaded' })
     await expect(page.getByRole('heading', { name: 'Observe how an answer becomes knowable.' })).toBeVisible()
   })
 

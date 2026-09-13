@@ -56,7 +56,7 @@
 
 ## 2026-09-13 · Keep Observatory spatial rendering deterministic and semantic
 
-**Decision:** Render the Observatory's 128-record information spaces as direction-owned SVG and HTML. Keep the shared Three.js adapter available to other routes, but do not download it on `/v2/observatory`.
+**Decision:** Render the Observatory's 128-record information spaces as direction-owned SVG and HTML. Keep the shared Three.js adapter available to other routes, but do not download it on the Observatory route.
 
 **Reason:** At this workload, SVG preserves keyboard access, inspectable entity semantics, deterministic layouts, crisp palette behavior, and a complete static/reduced-motion experience. A GPU scene would add substantial transfer and lifecycle cost without making the evidence relationships more legible. Reconsider only after profiling a workload that materially exceeds this one.
 
@@ -65,3 +65,9 @@
 **Decision:** Restricted records are excluded from render state by the knowledge model. The Observatory shows only anonymous structural markers inside a hatched access horizon, with no restricted title, owner, or passage text.
 
 **Reason:** Permission is a boundary on what can be known, not an error state or a collection of alarming red nodes. The treatment makes identity changes spatially meaningful without leaking protected content.
+
+## 2026-09-13 · Prepare a gated V2 GitHub Pages artifact
+
+**Decision:** Promote the V2 build to the repository root through base-aware clean routes and physical route entry files. Keep the GitHub Actions deployment manual-only until launch approval, and remove the competing local `gh-pages` command.
+
+**Reason:** The same artifact can be reviewed locally and later published at `/Knowledge_System/` without route-prefix bugs or refresh failures. A single manual release path protects the current V1 site from accidental replacement.

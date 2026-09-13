@@ -16,8 +16,8 @@ export default defineConfig({
     { name: 'mobile-chromium', use: { ...devices['Pixel 5'] } },
   ],
   webServer: {
-    command: 'npm run preview -- --host 127.0.0.1 --port 4174',
-    url: 'http://127.0.0.1:4174/v2',
+    command: 'npm run preview:test -- --host 127.0.0.1 --port 4174',
+    url: 'http://127.0.0.1:4174/',
     reuseExistingServer: true,
     timeout: 120_000,
   },

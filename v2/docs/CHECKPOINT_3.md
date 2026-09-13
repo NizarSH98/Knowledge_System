@@ -4,7 +4,7 @@ Review date: 13 September 2026
 
 ## Outcome
 
-The Knowledge Observatory is a standalone direction at `/v2/observatory`. It turns the shared Asteria model into three inspectable information spaces and demonstrates the canonical supplier-selection query without fabricated confidence, hidden reasoning, or leaked restricted content. The other direction routes remain neutral Checkpoint 2 foundations.
+The Knowledge Observatory is a standalone direction at `/observatory` (published as `/Knowledge_System/observatory/`). It turns the shared Asteria model into three inspectable information spaces and demonstrates the canonical supplier-selection query without fabricated confidence, hidden reasoning, or leaked restricted content. The other direction routes remain neutral Checkpoint 2 foundations.
 
 ## Information spaces
 
