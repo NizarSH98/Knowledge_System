@@ -6,7 +6,9 @@ This is the naked copy layer for the integrated V2 experience. It intentionally 
 
 ### [Browser title]
 
-`{Current workspace} · Knowledge Systems V2`
+Home: `Knowledge Systems · Organizational Knowledge Infrastructure for AI`
+
+Demonstration: `{Current workspace} · Knowledge Systems`
 
 ### [Global wordmark]
 
@@ -14,8 +16,11 @@ Knowledge Systems
 
 ### [Global navigation]
 
-- Directions
-- Compare
+- What it does
+- How we work
+- Demonstration
+- Trust
+- Assess a workflow
 
 ### [Accessibility link]
 
@@ -23,117 +28,131 @@ Skip to content
 
 ### [Global footer]
 
-Knowledge Systems V2 exploration
+Knowledge Systems
 
-All Asteria records, people, suppliers, and projects are synthetic.
+Private organizational knowledge infrastructure for AI.
+
+jabernizar98@gmail.com
+
+The demonstration uses synthetic organizations, people, projects, suppliers, and records.
 
 ## Integrated home page — `/v2`
 
 ### [Hero eyebrow]
 
-Asteria Infrastructure Group / synthetic demonstration
+Private organizational knowledge infrastructure for AI
 
 ### [Hero H1]
 
-Observe, operate, and remember what the organization knows.
+Turn what your organization knows into something it can actually use.
 
 ### [Hero introduction]
 
-One evidence system expressed through three complementary interaction languages. Explore them together here, then open each full workspace for a closer review.
+Knowledge Systems turns scattered company information into an AI-powered knowledge infrastructure that people can search, understand, verify, and eventually act through.
 
-### [Appearance panel title]
+### [Hero actions]
 
-Appearance
+- Explore the demonstration
+- Assess a Knowledge Workflow
 
-### [Appearance panel description]
+### [Concrete example label and H2]
 
-One shared palette system, separated by reading mode.
+A concrete example
 
-### [Appearance groups]
+One question. The decision behind it.
+
+### [Concrete example question]
+
+“Why was this supplier selected for Project Atlas?”
+
+### [Concrete example explanation]
+
+A project manager should not need to reconstruct the answer from folders and old emails. Knowledge Systems can connect the evaluation, meeting record, quotation, project requirement, and later revisions—with links back to every supporting source.
+
+### [Problem H2]
+
+Your organization already has the knowledge. The problem is finding and using it.
+
+### [Problem explanation]
+
+Important information is spread across shared drives, document systems, emails, reports, spreadsheets, project folders, and individual experience.
+
+- Employees spend time searching instead of working.
+- Previous decisions become difficult to understand.
+- Knowledge disappears when people leave.
+- Teams recreate work that already exists.
+- Relationships between projects, records, people, and decisions remain hidden.
+- General AI tools cannot reliably understand the organization behind the files.
+
+Knowledge Systems creates a usable layer across that information so the organization can work with what it already knows.
+
+### [System diagram H2]
+
+From company information to controlled AI capabilities.
+
+1. Company sources — Documents, records, systems, and approved data.
+2. Knowledge layer — Entities, relationships, history, and access boundaries.
+3. AI interface — Natural-language retrieval and investigation.
+4. Verified work — Answers, exploration, citations, and institutional memory.
+5. Controlled agents — Approved actions with safeguards and human oversight.
+
+### [Capabilities H2]
+
+Find the file. Understand the context. Preserve what matters.
+
+- Ask — Ask questions across organizational knowledge using natural language. Answers stay grounded in available company information.
+- Explore — Understand how projects, people, decisions, suppliers, records, and events connect instead of treating every file in isolation.
+- Verify — Follow important statements back to supporting records and passages. If the information is insufficient, the system says so.
+- Remember — Preserve decisions, evidence, changes, and historical context when projects end or people move on.
+- Act — Add controlled AI agents only after the knowledge foundation is reliable, with defined approval, logging, and rollback.
+
+### [Commercial path H2]
+
+Start with one real problem. Expand when it works.
+
+1. Discovery — Understand the business problem, users, information environment, systems, constraints, and desired outcome.
+2. Assessment — Evaluate the data, integrations, security requirements, AI opportunities, and what should actually be built.
+3. Knowledge pilot — Implement one bounded use case with reliable retrieval, citations, context, permissions, and measurable acceptance criteria.
+4. Production system — Expand a successful pilot across the repositories, teams, workflows, and knowledge domains where it creates value.
+5. Controlled AI agents — Introduce approved actions on top of the established knowledge layer, deliberately and with human control.
+
+### [Integration targets H2]
+
+Designed around where your knowledge already lives.
+
+Typical integration targets include cloud drives, document repositories, databases, internal applications, APIs, spreadsheets, and project systems.
+
+Integration scope is confirmed during assessment. These are common targets, not a claim that every connector is already production-tested.
+
+### [Demonstration H2]
+
+One knowledge foundation. Three ways to work with it.
+
+- Knowledge Observatory — See how the organization connects.
+- Institutional Workspace — Work directly with organizational knowledge.
+- Living Archive — Understand not only what was decided, but why.
+
+### [Trust H2]
+
+Knowledge should remain connected to evidence—and under organizational control.
+
+- Connected to evidence
+- Private by design
+- Built for adoption
+
+### [Final CTA H2]
+
+Start with one workflow where valuable knowledge already exists but is difficult to use.
+
+We can assess the opportunity, define a bounded pilot, measure whether it works, and decide what should happen next.
+
+### [Display preferences]
+
+Choose a reading theme.
 
 Light mode: Polar Sage; Warm Paper; Mineral Blue; Quiet Clay; Parchment Olive; Mist Lilac; Sandstone; Soft Cyan.
 
 Dark mode: Night Instrument; Deep Cobalt; Graphite Spectral; Forest Slate; Aubergine Ink; Bronze Night.
-
-### [Integrated section 01 eyebrow]
-
-Observe / Knowledge Observatory
-
-### [Integrated section 01 H2]
-
-See the organization around the answer.
-
-### [Integrated section 01 paragraph]
-
-Move from departments and projects to people, decisions, records, passages, and citations. The spatial view preserves context while an evidence path explains exactly what the current identity can know.
-
-### [Integrated section 01 capability list]
-
-- Three semantic scales
-- Permission horizon
-- Animated evidence path
-- Version lineage
-- Reverse citation inspection
-
-### [Integrated section 01 link]
-
-Open the Knowledge Observatory workspace
-
-### [Integrated section 02 eyebrow]
-
-Operate / Institutional OS
-
-### [Integrated section 02 H2]
-
-Turn evidence into a dependable work surface.
-
-### [Integrated section 02 paragraph]
-
-A dense, keyboard-minded workspace separates the supported answer from its claims, source records, and retrieval trace. Nothing is hidden behind a confidence score.
-
-### [Integrated section 02 capability list]
-
-- Identity-aware command bar
-- Claim ledger
-- Source inspector
-- Explicit exclusions
-- Deterministic trace
-
-### [Integrated section 02 link]
-
-Open the Institutional OS workspace
-
-### [Integrated section 03 eyebrow]
-
-Remember / Living Archive
-
-### [Integrated section 03 H2]
-
-Read the decision as an institutional record.
-
-### [Integrated section 03 paragraph]
-
-An editorial dossier gives every claim a footnote, every source an owner, and every version a place in time. Superseded evidence remains visible without being allowed to quietly win.
-
-### [Integrated section 03 capability list]
-
-- Narrative dossier
-- Margin references
-- Source folios
-- Version chronology
-- Permission-aware redaction
-
-### [Integrated section 03 link]
-
-Open the Living Archive workspace
-
-### [Closing principle label]
-
-One governing principle
-
-### [Closing principle paragraph]
-
-A supported answer must remain reversible: from sentence, to claim, to passage, to document, to owner, and back to the decision it influenced.
 
 ## Knowledge Observatory — `/v2/observatory`
 

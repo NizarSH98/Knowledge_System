@@ -32,7 +32,7 @@ try {
   await page.evaluate(() => {
     ;(window as Window & { __deploymentSentinel?: string }).__deploymentSentinel = 'preserved'
   })
-  await page.getByRole('link', { name: /Open the Knowledge Observatory workspace/ }).click()
+  await page.getByRole('link', { name: 'Open Knowledge Observatory' }).click()
 
   if (new URL(page.url()).pathname !== `${publicBase}/observatory`) {
     throw new Error(`Client navigation lost the repository prefix: ${page.url()}`)

@@ -11,6 +11,7 @@ This directory is a new, isolated exploration. It does not import V1 components,
 - [x] Institutional OS — complete direction-owned workspace
 - [x] Living Archive — complete direction-owned dossier
 - [x] Comparison, automated testing, contrast validation, and visual review captures
+- [x] Customer-message revision — company promise, concrete example, architecture diagram, commercial path, integration scope, and assessment CTA
 
 Checkpoint 1 is preserved in commit `80891e5`; Checkpoint 2 in `a4b3dc1`; and the original Observatory checkpoint in `111f4c1`. The later integrated redesign is documented in `docs/INTEGRATED_REDESIGN.md`.
 
@@ -30,4 +31,5 @@ The model validation checks referential integrity, cardinality targets, version 
 See `docs/CHECKPOINT_3.md` for the Observatory acceptance review, screenshot matrix, and verified results.
 See `docs/INTEGRATED_REDESIGN.md` for the combined experience, completed OS and Archive directions, and shared palette system.
 See `docs/TEXT_ONLY_CONTENT.md` for the naked copy review.
+See `docs/DEPLOYMENT_READINESS.md` for resolved clarity gaps and the remaining human approvals before promotion.
 See `docs/DEPLOYMENT.md` for local review URLs, artifact structure, and the intentionally manual release gate.

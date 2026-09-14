@@ -16,19 +16,20 @@ for (const route of routes) {
   })
 }
 
-test('home combines three genuinely distinct experiences', async ({ page }) => {
+test('home communicates the company promise before the demonstrations', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByRole('heading', { name: 'Observe, operate, and remember what the organization knows.' })).toBeVisible()
-  await expect(page.locator('.integrated-direction')).toHaveCount(3)
-  await expect(page.getByText('See the organization around the answer.')).toBeVisible()
-  await expect(page.getByText('Turn evidence into a dependable work surface.')).toBeVisible()
-  await expect(page.getByText('Read the decision as an institutional record.')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Turn what your organization knows into something it can actually use.' })).toBeVisible()
+  await expect(page.getByText('One question. The decision behind it.')).toBeVisible()
+  await expect(page.locator('.system-flow > li')).toHaveCount(5)
+  await expect(page.locator('.engagement-steps > li')).toHaveCount(5)
+  await expect(page.locator('.demo-card')).toHaveCount(3)
+  await expect(page.getByRole('link', { name: 'Assess a Knowledge Workflow' }).first()).toBeVisible()
 })
 
 test('route navigation and global palette state work without reload', async ({ page }) => {
   await page.goto('/?test=route', { waitUntil: 'domcontentloaded' })
   await page.evaluate(() => { (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel = 'preserved' })
-  await page.getByRole('link', { name: /Open the Knowledge Observatory workspace/ }).click()
+  await page.getByRole('link', { name: 'Open Knowledge Observatory' }).click()
   await expect(page).toHaveURL(/\/observatory/)
   expect(await page.evaluate(() => (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel)).toBe('preserved')
   await page.getByLabel('Color palette').selectOption('polar-sage')
