@@ -134,7 +134,7 @@ One knowledge foundation. Three ways to work with it.
 
 ### [Trust H2]
 
-Knowledge should remain connected to evidence—and under organizational control.
+Knowledge should remain connected to evidence and under organizational control.
 
 - Connected to evidence
 - Private by design

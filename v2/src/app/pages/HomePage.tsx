@@ -179,7 +179,7 @@ export function HomePage() {
       <section id="trust" className="trust-section page-section" aria-labelledby="trust-title">
         <header>
           <p className="section-label">Useful, inspectable, accountable</p>
-          <h2 id="trust-title">Knowledge should remain connected to evidence—and under organizational control.</h2>
+          <h2 id="trust-title">Knowledge should remain connected to evidence and under organizational control.</h2>
         </header>
         <div className="trust-grid">
           <article><h3>Connected to evidence</h3><p>Important outputs can remain linked to citations, exact passages, ownership, version history, relationships, permissions, retrieval records, refusal states, and agent action logs.</p></article>

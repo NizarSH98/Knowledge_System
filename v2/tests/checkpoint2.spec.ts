@@ -26,6 +26,25 @@ test('home communicates the company promise before the demonstrations', async ({
   await expect(page.getByRole('link', { name: 'Assess a Knowledge Workflow' }).first()).toBeVisible()
 })
 
+test('home navigation, contact actions, and heading structure are release-ready', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  await expect(page.locator('h1')).toHaveCount(1)
+  await expect(page.getByRole('heading', { name: 'Knowledge should remain connected to evidence and under organizational control.' })).toBeVisible()
+
+  for (const link of await page.locator('.shell-header nav a').all()) {
+    const href = await link.getAttribute('href')
+    const hash = href ? new URL(href, page.url()).hash : ''
+    expect(hash).not.toBe('')
+    await expect(page.locator(hash)).toHaveCount(1)
+  }
+
+  const assessmentLinks = page.getByRole('link', { name: /Assess a (Knowledge )?Workflow/i })
+  expect(await assessmentLinks.count()).toBeGreaterThanOrEqual(2)
+  for (const link of await assessmentLinks.all()) {
+    await expect(link).toHaveAttribute('href', /^mailto:jabernizar98@gmail\.com/)
+  }
+})
+
 test('route navigation and global palette state work without reload', async ({ page }) => {
   await page.goto('/?test=route', { waitUntil: 'domcontentloaded' })
   await page.evaluate(() => { (window as Window & { __v2RouteSentinel?: string }).__v2RouteSentinel = 'preserved' })
